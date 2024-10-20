@@ -65,9 +65,9 @@ impl Color {
 
     // Convert to HSV tuple
     pub fn to_hsv(&self) -> (f32, f32, f32) {
-        let r = self.r as f32 / 255.0;
-        let g = self.g as f32 / 255.0;
-        let b = self.b as f32 / 255.0;
+        let r = f32::from(self.r) / 255.0;
+        let g = f32::from(self.g) / 255.0;
+        let b = f32::from(self.b) / 255.0;
 
         let max = r.max(g).max(b);
         let min = r.min(g).min(b);
@@ -150,7 +150,7 @@ fn main() {
         return;
     };
 
-    println!("Input Color: {}", color);
+    println!("Input Color: {color}");
     println!(
         "Complementary Color (RGB Complement): {}",
         rgb_complement(color.clone())
