@@ -88,6 +88,10 @@ impl Color {
 
         (h.abs(), s, v)
     }
+    // Display color as ANSI escape code for terminal
+    pub fn to_ansi(&self) -> String {
+        format!("\x1b[48;2;{};{};{}m \x1b[0m", self.r, self.g, self.b)
+    }
 }
 
 impl std::fmt::Display for Color {
@@ -149,14 +153,17 @@ fn main() {
         eprintln!("No color input provided.");
         return;
     };
-
-    println!("Input Color: {color}");
+    let rgb_c = rgb_complement(color.clone());
+    let hsv_c = hsv_complement(color.clone());
+    println!("Input Color: {color} {}", color.to_ansi());
     println!(
-        "Complementary Color (RGB Complement): {}",
-        rgb_complement(color.clone())
+        "Complementary Color (RGB Complement): {} {}",
+        rgb_c,
+        rgb_c.to_ansi()
     );
     println!(
-        "Complementary Color (HSV Complement): {}",
-        hsv_complement(color)
+        "Complementary Color (HSV Complement): {} {}",
+        hsv_c,
+        hsv_c.to_ansi()
     );
 }
